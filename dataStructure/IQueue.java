@@ -1,3 +1,5 @@
+package dataStructure;
+
 public interface IQueue<T> {
     public void enqueue(T value);
 

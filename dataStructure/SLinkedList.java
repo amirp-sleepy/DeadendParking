@@ -1,3 +1,5 @@
+package dataStructure;
+
 public class SLinkedList<T> implements ADT<T> {
 
     private class Node {

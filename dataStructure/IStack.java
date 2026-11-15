@@ -1,3 +1,5 @@
+package dataStructure;
+
 public interface IStack<T> {
 
     public T peek();

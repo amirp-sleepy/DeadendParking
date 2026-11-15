@@ -1,3 +1,5 @@
+package dataStructure;
+
 public interface ADT<T> {
 
     public void insert(int index, T value);

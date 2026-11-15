@@ -1,15 +1,22 @@
 package Models;
-import Interfaces.ICar;
+import Interfaces.*;
 
 public class Car implements ICar {
 
     private String m_plate;
     private ITicket m_ticket;
 
-    public Car(String m_plate, ITicket m_ticket) {
+    public Car(String plate) {
 
-        this.m_plate = m_plate;
-        this.m_ticket = m_ticket;
+        m_plate = plate;
+        m_ticket = null;
+
+    }
+    
+    public Car(String plate, ITicket ticket) {
+
+        m_plate = plate;
+        m_ticket = ticket;
 
     }
 
