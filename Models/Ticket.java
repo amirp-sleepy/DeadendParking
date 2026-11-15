@@ -1,0 +1,62 @@
+package Models;
+
+import Interfaces.ITicket;
+
+public class Ticket implements ITicket{
+
+    private int m_displacement;
+    private int m_entryTime;
+    private int m_exitTime;
+    private int m_cost;
+    private String m_plate;
+
+
+    public Ticket(int entryTime, String plate){
+        m_entryTime = entryTime;
+        m_displacement = 0;
+        m_exitTime = 0;
+        m_cost = 0;
+        m_plate = plate;
+    }
+
+    @Override
+    public int getDisplacement() {
+        return m_displacement;
+    }
+
+    @Override
+    public void increaseDisplacement() {
+        m_displacement++;
+    }
+
+    @Override
+    public int getEntryTime() {
+        return m_entryTime;
+    }
+
+    @Override
+    public int getExitTime() {
+        return m_exitTime;
+    }
+
+    @Override
+    public void setExitTime(int exitTime) {
+        m_exitTime = exitTime;
+    }
+
+    @Override
+    public int getCost() {
+        return m_cost;
+    }
+
+    @Override
+    public void setCost(int cost) {
+        m_cost = cost;
+    }
+
+    @Override
+    public String getPlate() {
+        return m_plate;
+    }
+    
+}
