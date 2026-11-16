@@ -2,16 +2,15 @@ package Models;
 
 import Interfaces.ITicket;
 
-public class Ticket implements ITicket{
+public class Ticket implements ITicket {
 
     private int m_displacement;
     private int m_entryTime;
     private int m_exitTime;
-    private int m_cost;
+    private float m_cost;
     private String m_plate;
 
-
-    public Ticket(int entryTime, String plate){
+    public Ticket(int entryTime, String plate) {
         m_entryTime = entryTime;
         m_displacement = 0;
         m_exitTime = 0;
@@ -45,12 +44,12 @@ public class Ticket implements ITicket{
     }
 
     @Override
-    public int getCost() {
+    public float getCost() {
         return m_cost;
     }
 
     @Override
-    public void setCost(int cost) {
+    public void setCost(float cost) {
         m_cost = cost;
     }
 
@@ -58,5 +57,5 @@ public class Ticket implements ITicket{
     public String getPlate() {
         return m_plate;
     }
-    
+
 }

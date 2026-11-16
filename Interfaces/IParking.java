@@ -1,10 +1,9 @@
 package Interfaces;
 
 public interface IParking {
-    
-    public float leave(String plate) throws Exception;
 
-    public void add(String plate) throws Exception;
+    public float leave(String plate, int tick) throws Exception;
 
-    public void increaseTick();
+    public void add(String plate, int tick) throws Exception;
+
 }
