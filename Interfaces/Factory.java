@@ -18,5 +18,9 @@ public class Factory {
 
         return new Ticket(tick, plate);
     }
+
+    public static IParking createParking(int capacity){
+        return new Parking(capacity);
+    }
     
 }

@@ -15,31 +15,31 @@ public class Parking implements IParking {
     }
 
     @Override
-    public void add(String plate, int tick) throws Exception {
+    public boolean add(String plate, int tick) throws Exception {
 
         if (m_cars.isFull())
-            return;
+            return false;
 
         if (searchCarInParking(plate) != -1)
-            throw new Exception("parking already contains this car"); // or return
+            throw new Exception("is already here");
 
         ITicket ticket = Factory.createTicket(tick, plate);
         ICar car = Factory.createCar(plate, ticket);
 
         m_cars.push(car);
-
+        return true;
     }
 
     @Override
-    public float leave(String plate, int tick) throws Exception {
+    public ITicket leave(String plate, int tick) throws Exception {
 
         if (m_cars.isEmpty())
-            throw new Exception("parking id empty"); // or return
+            throw new Exception("not found");
 
         int index = searchCarInParking(plate);
 
         if (index == -1)
-            throw new Exception("parking doesn't contain this car"); // or return
+            throw new Exception("not found");
 
         ICar car = null;
 
@@ -51,15 +51,17 @@ public class Parking implements IParking {
         }
 
         car = m_cars.pop();
-        car.getTicket().setExitTime(tick);
+        ITicket ticket = car.getTicket();
+        ticket.setExitTime(tick);
+        float cost = calculateCost(car);
+        ticket.setCost(cost);
 
         while (!m_tempPlace.isEmpty()) {
             m_cars.push(m_tempPlace.pop());
         }
 
-        float cost = calculateCost(car);
-        car.getTicket().setCost(cost);
-        return cost;
+    
+        return ticket;
 
     }
 
@@ -67,7 +69,8 @@ public class Parking implements IParking {
 
         ITicket ticket = car.getTicket();
         int T = ticket.getExitTime() - ticket.getEntryTime();
-        return (float) Math.max(0, (Config.r * (Math.ceil(T / 60))) - Config.c * ticket.getDisplacement());
+        int billableHours = (int) Math.ceil(T / 60.0);
+        return Math.max(0, Config.r * billableHours - Config.c * ticket.getDisplacement());
 
     }
 

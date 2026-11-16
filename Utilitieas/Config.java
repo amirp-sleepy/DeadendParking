@@ -2,6 +2,6 @@ package Utilitieas;
 
 public class Config {
 
-    public static float r;
-    public static float c;
+    public static final int r = 10;
+    public static final int c = 2;
 }
