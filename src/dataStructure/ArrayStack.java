@@ -7,6 +7,7 @@ public class ArrayStack<T> implements IStack<T> {
     private int tail;
     private int size;
 
+    @SuppressWarnings("unchecked")
     public ArrayStack(int capacity) {
         data = (T[]) new Object[capacity];
         tail = -1;
