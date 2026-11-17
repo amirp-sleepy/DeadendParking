@@ -37,10 +37,10 @@ public class SLinkedList<T> implements ADT<T> {
             throw new IllegalStateException("The list is empty.");
     }
 
-    private Node findPrev(int index) {
+    private Node findNode(int index) {
         Node result = m_head;
-        for (int i = 1; i < index; i++) {
-            result = m_head.next;
+        for (int i = 0; i < index; i++) {
+            result = result.next;
         }
         return result;
     }
@@ -49,7 +49,16 @@ public class SLinkedList<T> implements ADT<T> {
     public void insert(int index, T value) {
         checkIndexInsert(index);
 
-        Node previous = findPrev(index);
+        if (index == 0) {
+            insertFirst(value);
+            return;
+        }
+        if (index == m_size) {
+            insertLast(value);
+            return;
+        }
+
+        Node previous = findNode(index - 1);
         Node next = previous.next;
         Node current = new Node(next, value);
 
@@ -59,10 +68,17 @@ public class SLinkedList<T> implements ADT<T> {
 
     @Override
     public T remove(int index) {
-        checkIndexElements(index);
         checkEmpty();
+        checkIndexElements(index);
 
-        Node previous = findPrev(index);
+        if (index == 0) {
+            return removeFirst();
+        }
+        if (index == m_size - 1) {
+            return removeLast();
+        }
+
+        Node previous = findNode(index - 1);
         Node current = previous.next;
         Node next = current.next;
 
@@ -75,19 +91,17 @@ public class SLinkedList<T> implements ADT<T> {
     @Override
     public T get(int index) {
         checkIndexElements(index);
-        checkEmpty();
 
-        Node previous = findPrev(index);
-        return previous.next.data;
+        return findNode(index).data;
     }
 
     @Override
     public T set(int index, T value) {
         checkIndexElements(index);
 
-        Node previous = findPrev(index);
-        T cellData = previous.next.data;
-        previous.next.data = value;
+        Node node = findNode(index);
+        T cellData = node.data;
+        node.data = value;
 
         return cellData;
     }
@@ -152,13 +166,42 @@ public class SLinkedList<T> implements ADT<T> {
     public T removeLast() {
         checkEmpty();
 
-        Node previous = findPrev(m_size - 1);
-
-        T cellData = previous.next.data;
-        previous.next = null;
+        T cellData;
+        if (m_size != 1) {
+            Node previous = findNode(m_size - 2);
+            cellData = previous.next.data;
+            previous.next = null;
+            m_tail = previous;
+        } else {
+            cellData = m_head.data;
+            m_head = null;
+            m_tail = null;
+        }
         m_size--;
+        return cellData;
+    }
 
-        if (m_size == 0)
-            
+    @Override
+    public T front() {
+        checkEmpty();
+        return m_head.data;
+    }
+
+    @Override
+    public T back() {
+        checkEmpty();
+        return m_tail.data;
+    }
+
+    @Override
+    public ADT<T> clone() {
+        SLinkedList<T> copyList = new SLinkedList<>();
+        Node node = m_head;
+        while (node != null) {
+            copyList.insertLast(node.data);
+            node = node.next;
+        }
+
+        return copyList;
     }
 }
