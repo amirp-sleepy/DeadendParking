@@ -43,10 +43,15 @@ public class Manager {
                         ITicket ticket = parking.leave(plate, time);
                         int stay = ticket.getExitTime() - ticket.getEntryTime();
                         int fee = Math.round(ticket.getCost());
-                        System.out.println("LEAVE " + ticket.getPlate()
+                        System.out.print("LEAVE " + ticket.getPlate()
                                 + " stay=" + stay
                                 + " moves=" + ticket.getDisplacement()
                                 + " fee=" + fee);
+                        if(ticket.whichDoor().equalsIgnoreCase("north"))
+                            System.out.println("door=" + ticket.whichDoor());
+                        else{
+                            System.out.println("door=" + ticket.whichDoor());
+                        }
                         if(!mainSt.isEmpty()){
                             ICar carFromQueue = mainSt.remove();
                             int slot = parking.add(carFromQueue, time);

@@ -12,4 +12,8 @@ public interface IDequeue<T> {
     public boolean isFull();
 
     public int size();
+
+    public boolean isEmpty();
+
+    public T get(int index);
 }

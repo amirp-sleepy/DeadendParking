@@ -7,7 +7,7 @@ public class CircularArray<T> implements ADT<T>, IDequeue<T> {
     private int size;
 
     @SuppressWarnings("unchecked")
-    CircularArray(int capacity) {
+    public CircularArray(int capacity) {
 
         if (capacity <= 0) {
             throw new IllegalArgumentException("capacity most be positeve.");

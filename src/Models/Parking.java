@@ -3,14 +3,16 @@ package Models;
 import Interfaces.*;
 import dataStructure.ArrayStack;
 import Utilitieas.*;
+import dataStructure.CircularArray;
+import dataStructure.IDequeue;
 
 public class Parking implements IParking {
 
-    ArrayStack<ICar> m_cars;
+    IDequeue<ICar> m_cars;
     ArrayStack<ICar> m_tempPlace;
 
     public Parking(int capacity) {
-        m_cars = new ArrayStack<ICar>(capacity);
+        m_cars = new CircularArray<ICar>(capacity);
         m_tempPlace = new ArrayStack<ICar>(capacity);
     }
 
@@ -23,7 +25,7 @@ public class Parking implements IParking {
         ITicket ticket = Factory.createTicket(tick, car.getPlate());
         //ICar car = Factory.createCar(plate, ticket);
         car.setTicket(ticket);
-        m_cars.push(car);
+        m_cars.insertLast(car);
         return m_cars.size();
     }
 
@@ -39,25 +41,41 @@ public class Parking implements IParking {
             throw new Exception("not found");
 
         ICar car = null;
+        ITicket ticket = null;
 
-        for (int i = m_cars.size() - 1; i > index; i--) {
+        if (index > m_cars.size() / 2) {
+            for (int i = m_cars.size() - 1; i > index; i--) {
+                car = m_cars.removeLast();
+                car.getTicket().increaseDisplacement();
+                m_tempPlace.push(car);
+            }
+            car = m_cars.removeLast();
+            ticket = car.getTicket();
+            ticket.setDoor("south");
 
-            car = m_cars.pop();
-            car.getTicket().increaseDisplacement();
-            m_tempPlace.push(car);
+            while (!m_tempPlace.isEmpty()) {
+                m_cars.insertLast(m_tempPlace.pop());
+            }
+        }
+        else {
+            for(int i = 0; i < index; i++) {
+                car = m_cars.removeFirst();
+                car.getTicket().increaseDisplacement();
+                m_tempPlace.push(car);
+            }
+            car = m_cars.removeFirst();
+            ticket = car.getTicket();
+            ticket.setDoor("north");
+            while (!m_tempPlace.isEmpty()) {
+                m_cars.insertFirst(m_tempPlace.pop());
+            }
         }
 
-        car = m_cars.pop();
-        ITicket ticket = car.getTicket();
+
         ticket.setExitTime(tick);
         float cost = calculateCost(car);
         ticket.setCost(cost);
 
-        while (!m_tempPlace.isEmpty()) {
-            m_cars.push(m_tempPlace.pop());
-        }
-
-    
         return ticket;
 
     }

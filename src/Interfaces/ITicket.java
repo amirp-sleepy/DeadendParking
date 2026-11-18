@@ -18,4 +18,8 @@ public interface ITicket {
 
     public String getPlate();
 
+    public void setDoor(String door);
+
+    public String whichDoor();
+
 }

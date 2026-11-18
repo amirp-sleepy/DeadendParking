@@ -9,6 +9,7 @@ public class Ticket implements ITicket {
     private int m_exitTime;
     private float m_cost;
     private String m_plate;
+    private String m_door;
 
     public Ticket(int entryTime, String plate) {
         m_entryTime = entryTime;
@@ -16,6 +17,7 @@ public class Ticket implements ITicket {
         m_exitTime = 0;
         m_cost = 0;
         m_plate = plate;
+        m_door = "";
     }
 
     @Override
@@ -58,4 +60,13 @@ public class Ticket implements ITicket {
         return m_plate;
     }
 
+    @Override
+    public String whichDoor() {
+        return m_door;
+    }
+
+    @Override
+    public void setDoor(String door) {
+        m_door = door;
+    }
 }
