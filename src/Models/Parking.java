@@ -15,22 +15,19 @@ public class Parking implements IParking {
     }
 
     @Override
-    public boolean add(String plate, int tick) throws Exception {
+    public int add(ICar car, int tick) throws Exception {
 
-        if (m_cars.isFull())
-            return false;
-
-        if (searchCarInParking(plate) != -1)
+        if (searchCarInParking(car.getPlate()) != -1)
             throw new Exception("is already here");
 
-        ITicket ticket = Factory.createTicket(tick, plate);
-        ICar car = Factory.createCar(plate, ticket);
-
+        ITicket ticket = Factory.createTicket(tick, car.getPlate());
+        //ICar car = Factory.createCar(plate, ticket);
+        car.setTicket(ticket);
         m_cars.push(car);
-        return true;
+        return m_cars.size();
     }
 
-    @Override
+@Override
     public ITicket leave(String plate, int tick) throws Exception {
 
         if (m_cars.isEmpty())
@@ -82,5 +79,9 @@ public class Parking implements IParking {
         }
 
         return -1;
+    }
+
+    public boolean isFull(){
+        return m_cars.isFull();
     }
 }

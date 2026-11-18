@@ -34,8 +34,9 @@ public class MainSt implements IMainSt {
     }
 
     @Override
-    public int add(ICar car) {
+    public int add(ICar car, int tick) {
         carsQueue.enqueue(car);
+        car.setWaitingTime(tick);
         return carsQueue.size();
     }
 

@@ -9,10 +9,10 @@ public class Factory {
         return new Car(plate);
     }
 
-    public static ICar createCar(String plate, ITicket ticket){
+    // public static ICar createCar(String plate, ITicket ticket){
 
-        return new Car(plate, ticket);
-    }
+    //     return new Car(plate, ticket);
+    // }
 
     public static ITicket createTicket(int tick, String plate){
 
@@ -21,6 +21,10 @@ public class Factory {
 
     public static IParking createParking(int capacity){
         return new Parking(capacity);
+    }
+
+    public static IMainSt createMainSt(){
+        return new MainSt();
     }
     
 }

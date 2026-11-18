@@ -5,7 +5,7 @@ public interface IMainSt {
 
     public ICar remove();
 
-    public int add(ICar car);
+    public int add(ICar car, int tick);
 
     public boolean isEmpty();
 }

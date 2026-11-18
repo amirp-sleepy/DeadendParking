@@ -6,4 +6,10 @@ public interface ICar {
 
     public ITicket getTicket();
 
+    public void setTicket(ITicket ticket);
+
+    public int getWaitingTime();
+
+    public void setWaitingTime(int waitingTime);
+
 }
