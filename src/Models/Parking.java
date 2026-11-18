@@ -13,7 +13,7 @@ public class Parking implements IParking {
 
     public Parking(int capacity) {
         m_cars = new CircularArray<ICar>(capacity);
-        m_tempPlace = new ArrayStack<ICar>(capacity);
+        m_tempPlace = new ArrayStack<ICar>(capacity / 2);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class Parking implements IParking {
 
     }
 
-    private int searchCarInParking(String plate) {
+    private int searchCarInParking(String plate) { //
 
         for (int i = 0; i < m_cars.size(); i++) {
             if (m_cars.get(i).getPlate().equalsIgnoreCase(plate))

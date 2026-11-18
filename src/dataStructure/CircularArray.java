@@ -79,7 +79,7 @@ public class CircularArray<T> implements ADT<T>, IDequeue<T> {
 
     }
 
-    @Override
+        @Override
     public T remove(int index) {
         empty();
         checkElementIndex(index);
@@ -87,28 +87,30 @@ public class CircularArray<T> implements ADT<T>, IDequeue<T> {
         if (index == 0) {
             return removeFirst();
         }
+
         if (index == size - 1) {
             return removeLast();
         }
 
         T cellData = data[physicalIndex(index)];
 
-        if (index <= size - index) {
+        if (index < size - index) {
             for (int i = index; i > 0; i--) {
                 data[physicalIndex(i)] = data[physicalIndex(i - 1)];
             }
+
             data[head] = null;
             head = (head + 1) % data.length;
-
         } else {
-            for (int i = index; i < size; i++) {
+            for (int i = index; i < size - 1; i++) {
                 data[physicalIndex(i)] = data[physicalIndex(i + 1)];
             }
-            data[size - 1] = null;
+
+            data[physicalIndex(size - 1)] = null;
         }
+
         size--;
         return cellData;
-
     }
 
     @Override
@@ -182,8 +184,9 @@ public class CircularArray<T> implements ADT<T>, IDequeue<T> {
     public T removeLast() {
         empty();
 
-        T cellData = data[physicalIndex(size - 1)];
-        data[size - 1] = null;
+        int lastIndex = physicalIndex(size - 1);
+        T cellData = data[lastIndex];
+        data[lastIndex] = null;
         size--;
 
         if (size == 0) {

@@ -48,9 +48,9 @@ public class Manager {
                                 + " moves=" + ticket.getDisplacement()
                                 + " fee=" + fee);
                         if(ticket.whichDoor().equalsIgnoreCase("north"))
-                            System.out.println("door=" + ticket.whichDoor());
+                            System.out.println(" door=" + ticket.whichDoor());
                         else{
-                            System.out.println("door=" + ticket.whichDoor());
+                            System.out.println(" door=" + ticket.whichDoor());
                         }
                         if(!mainSt.isEmpty()){
                             ICar carFromQueue = mainSt.remove();
